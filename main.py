@@ -24,6 +24,11 @@ TEXT = (
     "deadline and delivered to that one instead."
 )
 
+# Gate is enforced by construction: the sealed scorer only accepts
+# 1-160 characters, so refuse to write anything outside it rather
+# than ship an entry the gate would list as invalid.
+assert 1 <= len(TEXT) <= 160, "entry must be 1-160 characters"
+
 
 def main() -> None:
     out_dir = Path(os.environ.get("MAKEFUN_OUTPUT_DIR", "/output"))
